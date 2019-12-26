@@ -1,6 +1,3 @@
-runtime! debian.vim
-
-
 let mapleader = ","
 nnoremap 0 ^
 nnoremap ^ 0
@@ -118,7 +115,7 @@ syntax on
 "   augroup END
 " endif
 " colorscheme onedark
-colorscheme molokai
+colorscheme molokai-transparent
 " Uncomment the following to have Vim jump to the last position when
 " reopening a file
 "if has("autocmd")
