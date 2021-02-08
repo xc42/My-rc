@@ -7,7 +7,6 @@ nnoremap x "_x
 nnoremap X "_X
 nnoremap d "_d
 nnoremap D "_D
-nnoremap <Tab> <C-w>w
 vnoremap d "_d
 
 nnoremap <leader>d d
@@ -20,6 +19,7 @@ set shiftwidth=4
 set backspace=indent,eol,start
 set foldmethod=syntax
 set nofoldenable
+set list listchars=tab:▸\ ,trail:·,precedes:←,extends:→
 
 
 call plug#begin('~/.local/share/nvim/site/autoload/plugged')
@@ -33,6 +33,10 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'liuchengxu/vista.vim'
 Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'phanviet/vim-monokai-pro'
+Plug 'jackguo380/vim-lsp-cxx-highlight'
+Plug 'tpope/vim-fugitive'
+Plug 'APZelos/blamer.nvim'
 
 call plug#end()
 
@@ -90,4 +94,14 @@ function! NearestMethodOrFunction() abort
 
 set statusline+=%{NearestMethodOrFunction()}
   
+nn	<leader>v	:Vista coc<CR>
+nn	<leader>V	:Vista!<CR>
 """"""""""""""" Vista """""""""""""""""""""""
+
+"""""""""""""""" fzf """"""""""""""""""""""""
+map <C-p> :Files<CR>
+"""""""""""""""" fzf """"""""""""""""""""""""
+
+"""""""""""""""" APZelos/blamer.nvim """""""""""""""""""""""
+nnoremap gb		:BlamerToggle<CR>
+"""""""""""""""" APZelos/blamer.nvim """""""""""""""""""""""
