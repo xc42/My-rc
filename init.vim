@@ -12,6 +12,7 @@ vnoremap d "_d
 nnoremap <leader>d d
 nnoremap <leader>D D
 vnoremap <leader>d ""d
+tnoremap <C-n> <C-\><C-n>
 
 set nu
 set tabstop=4
@@ -19,8 +20,7 @@ set shiftwidth=4
 set backspace=indent,eol,start
 set foldmethod=syntax
 set nofoldenable
-set list listchars=tab:▸\ ,trail:·,precedes:←,extends:→
-
+set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·
 
 call plug#begin('~/.local/share/nvim/site/autoload/plugged')
 
@@ -99,9 +99,12 @@ nn	<leader>V	:Vista!<CR>
 """"""""""""""" Vista """""""""""""""""""""""
 
 """""""""""""""" fzf """"""""""""""""""""""""
-map <C-p> :Files<CR>
+map <C-H> :Files<CR>
+map <C-J> :Ag<CR>
+map <C-K> :BLines<CR>
 """""""""""""""" fzf """"""""""""""""""""""""
 
 """""""""""""""" APZelos/blamer.nvim """""""""""""""""""""""
 nnoremap gb		:BlamerToggle<CR>
+let g:blamer_date_format = '%Y/%m/%d %H:%M'
 """""""""""""""" APZelos/blamer.nvim """""""""""""""""""""""
