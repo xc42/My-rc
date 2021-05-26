@@ -32,11 +32,12 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'liuchengxu/vista.vim'
-Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+"Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'phanviet/vim-monokai-pro'
 Plug 'jackguo380/vim-lsp-cxx-highlight'
 Plug 'tpope/vim-fugitive'
 Plug 'APZelos/blamer.nvim'
+Plug 'rhysd/git-messenger.vim'
 
 call plug#end()
 
@@ -72,7 +73,7 @@ endif
 
 " Use `[g` and `]g` to navigate diagnostics
 " " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> [g <Plug>(coc-diagnost1ic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " " GoTo code navigation.
@@ -81,30 +82,60 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
+nn <silent> <leader>b :call CocLocations('ccls','$ccls/inheritance')<cr>
+" bases of up to 3 levels
+nn <silent> <leader>B :call CocLocations('ccls','$ccls/inheritance',{'levels':3})<cr>
+" derived
+"nn <silent> <leader>d :call CocLocations('ccls','$ccls/inheritance',{'derived':v:true})<cr>
+" derived of up to 3 levels
+"nn <silent> <leader>D :call CocLocations('ccls','$ccls/inheritance',{'derived':v:true,'levels':3})<cr>
+
+" caller
+nn <silent> <leader>c :call CocLocations('ccls','$ccls/call')<cr>
+" callee
+nn <silent> <leader>C :call CocLocations('ccls','$ccls/call',{'callee':v:true})<cr>
+
+nn <silent> <C-H>  :call CocAction('doHover')<cr>
+"nn <silent><buffer> <C-l> :call CocLocations('ccls','$ccls/navigate',{'direction':'D'})<cr>
+"nn <silent><buffer> <C-k> :call CocLocations('ccls','$ccls/navigate',{'direction':'L'})<cr>
+"nn <silent><buffer> <C-j> :call CocLocations('ccls','$ccls/navigate',{'direction':'R'})<cr>
+"nn <silent><buffer> <C-h> :call CocLocations('ccls','$ccls/navigate',{'direction':'U'})<cr>
+
+
+"""""""""""""""	airline """""""""""""""""""""""
+let g:airline#extensions#disable_rtp_load = 1
+let g:airline#extensions#whitespace#enabled = 0
+"""""""""""""""	airline """""""""""""""""""""""
 
 """""""""""""""	Coc.nvim """""""""""""""""""""""
-
 let g:airline#extensions#coc#enabled = 1
 
 
 """"""""""""""" Vista """""""""""""""""""""""
-function! NearestMethodOrFunction() abort
-	  return get(b:, 'vista_nearest_method_or_function', '')
-  endfunction
+let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+let g:vista_default_executive = 'coc'
+let g:vista#renderer#enable_icon = 0
 
+function! NearestMethodOrFunction() abort
+	return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
 set statusline+=%{NearestMethodOrFunction()}
-  
+
 nn	<leader>v	:Vista coc<CR>
-nn	<leader>V	:Vista!<CR>
 """"""""""""""" Vista """""""""""""""""""""""
 
 """""""""""""""" fzf """"""""""""""""""""""""
-map <C-H> :Files<CR>
-map <C-J> :Ag<CR>
-map <C-K> :BLines<CR>
+noremap <C-J> :Files<CR>
+noremap <C-K> :Ag<CR>
+noremap <C-L> :BLines<CR>
 """""""""""""""" fzf """"""""""""""""""""""""
 
 """""""""""""""" APZelos/blamer.nvim """""""""""""""""""""""
-nnoremap gb		:BlamerToggle<CR>
+nnoremap <leader>gb		:BlamerToggle<CR>
 let g:blamer_date_format = '%Y/%m/%d %H:%M'
 """""""""""""""" APZelos/blamer.nvim """""""""""""""""""""""
+
+"""""""""""""""" rhysd/git-messenger.vim """""""""""""""""""""""
+nn <leader>gm <Plug>(git-messenger)
+let g:git_messenger_date_format = "%Y %b %d %X"
+"""""""""""""""" rhysd/git-messenger.vim """""""""""""""""""""""
